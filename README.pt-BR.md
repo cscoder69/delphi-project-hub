@@ -7,7 +7,7 @@ clique, organizados em categorias e grupos, com ícones, busca, arrastar e solta
 exportar/importar. Gratuito e de código aberto sob a [licença MIT](LICENSE), da
 [CS.Coder](https://www.cscoder.com.br).
 
-![O painel no tema escuro](docs/images/list-dark.png)
+![O Hub na Welcome Page do Delphi](docs/images/panel.png)
 
 ## Por quê
 
@@ -46,9 +46,9 @@ veio com o Delphi.
 - **Seus dados são seus.** A lista é um arquivo JSON no seu computador. Nada é coletado nem
   enviado a lugar nenhum.
 
-| Tema claro | Escolhendo um ícone |
+| Escolhendo um ícone | Menus do projeto e do grupo |
 |---|---|
-| ![Tema claro](docs/images/list-light.png) | ![Escolher ícone](docs/images/icon-picker-dark.png) |
+| ![Escolher ícone](docs/images/icon-picker.png) | ![Menu do projeto](docs/images/project-menu.png)<br>![Menu do grupo](docs/images/group-menu.png) |
 
 ## Instalação
 

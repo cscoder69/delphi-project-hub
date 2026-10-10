@@ -7,7 +7,7 @@ away, organized in categories and groups, with icons, search, drag and drop and
 export/import. Free and open source under the [MIT License](LICENSE), by
 [CS.Coder](https://www.cscoder.com.br).
 
-![The panel in the dark theme](docs/images/list-dark.png)
+![The Hub on the Delphi Welcome Page](docs/images/panel.png)
 
 ## Why
 
@@ -46,9 +46,9 @@ panels, so it looks like it came with Delphi.
 - **Your data stays yours.** The list is a JSON file on your computer. Nothing is collected
   or sent anywhere.
 
-| Light theme | Choosing an icon |
+| Choosing an icon | Project and group menus |
 |---|---|
-| ![Light theme](docs/images/list-light.png) | ![Icon picker](docs/images/icon-picker-dark.png) |
+| ![Icon picker](docs/images/icon-picker.png) | ![Project menu](docs/images/project-menu.png)<br>![Group menu](docs/images/group-menu.png) |
 
 ## Install
 
