@@ -50,8 +50,6 @@ veio com o Delphi.
 |---|---|
 | ![Tema claro](docs/images/list-light.png) | ![Escolher ícone](docs/images/icon-picker-dark.png) |
 
-![Janela Sobre](docs/images/about-pt-dark.png)
-
 ## Instalação
 
 1. Baixe `CSCoderHubProjetos-<versão>.zip` de `CSCoderHub/dist/` (ou de Releases) e

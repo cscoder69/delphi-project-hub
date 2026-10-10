@@ -50,8 +50,6 @@ panels, so it looks like it came with Delphi.
 |---|---|
 | ![Light theme](docs/images/list-light.png) | ![Icon picker](docs/images/icon-picker-dark.png) |
 
-![About window](docs/images/about-en-light.png)
-
 ## Install
 
 1. Download `CSCoderHubProjetos-<version>.zip` from `CSCoderHub/dist/` (or from Releases)
