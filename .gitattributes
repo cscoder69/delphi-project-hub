@@ -1,0 +1,14 @@
+# Normalize line endings; Delphi files are checked out with CRLF on Windows.
+* text=auto
+*.pas text eol=crlf
+*.dpk text eol=crlf
+*.dfm text eol=crlf
+*.rc  text eol=crlf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+*.txt text eol=crlf
+
+# Binary
+*.png binary
+*.zip binary
+*.ico binary

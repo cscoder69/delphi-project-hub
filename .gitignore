@@ -1,0 +1,32 @@
+# Build output (rebuilt by CSCoderHub\build.bat / package.bat)
+CSCoderHub/bin/
+CSCoderHub/dcu/
+CSCoderHub/packages/*.res
+*.bpl.old
+
+# Delphi IDE leftovers
+__history/
+__recovery/
+*.identcache
+*.local
+*.stat
+*.dcu
+
+# Internal working notes (kept out of the public repository by the author's choice)
+.claude/
+
+# Temporary and backup files
+*.tmp
+*.bak
+_backup/
+
+# Icon source kept locally for other resolutions; not published
+icon-fullsize.png
+
+
+# Development history: kept local until the author reviews it for publication
+HISTORICO.md
+
+
+*.pdf
+

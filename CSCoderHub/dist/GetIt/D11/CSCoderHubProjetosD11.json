@@ -1,0 +1,44 @@
+{
+    "Id":  "CSCoderHubProjetosD11",
+    "Name":  "CS.Coder - Hub de Projetos",
+    "Version":  "0.26.10.10b",
+    "Description":  "Welcome Page panel that keeps your Delphi projects one double-click away, organized in categories and groups, with search, export/import and an interface in English, Portuguese, Spanish, German and French.",
+    "Vendor":  "CS.Coder",
+    "VendorUrl":  "https://www.cscoder.com.br",
+    "Image":  "CSCoderHubProjetos.png",
+    "License":  "LICENSE.txt",
+    "Url":  "CSCoderHubProjetosD11.zip",
+    "ProjectUrl":  "https://github.com/cscoder69/delphi-project-hub",
+    "Modified":  "2026-10-10 00:11:52",
+    "LicenseName":  "MIT License",
+    "RequireElevation":  "0",
+    "AllUsers":  "0",
+    "Actions":  [
+                    {
+                        "Id":  "1",
+                        "ActionId":  "7",
+                        "Type":  "3",
+                        "RequireElevation":  "0",
+                        "Parameter":  [
+                                          {
+                                              "Parameter":  "$(BDSCatalogRepository)\\CSCoderHubProjetosD11\\Win32\\CSCoder.HubProjetos.D11.bpl"
+                                          }
+                                      ],
+                        "ActionName":  "InstallPackage",
+                        "Description":  "Install CS.Coder - Hub de Projetos"
+                    },
+                    {
+                        "Id":  "2",
+                        "ActionId":  "8",
+                        "Type":  "5",
+                        "RequireElevation":  "0",
+                        "Parameter":  [
+                                          {
+                                              "Parameter":  "$(BDSCatalogRepository)\\CSCoderHubProjetosD11\\Win32\\CSCoder.HubProjetos.D11.bpl"
+                                          }
+                                      ],
+                        "ActionName":  "UninstallPackage",
+                        "Description":  "Uninstall CS.Coder - Hub de Projetos"
+                    }
+                ]
+}

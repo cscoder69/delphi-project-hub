@@ -1,0 +1,27 @@
+package CSCoder.HubProjetos.D12;
+
+{$R *.res}
+{$DESCRIPTION 'CS.Coder - Hub de Projetos (https://www.cscoder.com.br)'}
+{$RUNONLY OFF}
+{$DESIGNONLY ON}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  vcl,
+  designide;
+
+contains
+  CSCoder.Hub.Register in '..\src\CSCoder.Hub.Register.pas',
+  CSCoder.Hub.WelcomePlugin in '..\src\CSCoder.Hub.WelcomePlugin.pas',
+  CSCoder.Hub.CaptionFrame in '..\src\CSCoder.Hub.CaptionFrame.pas' {CSHubCaptionFrame: TFrame},
+  CSCoder.Hub.ClientFrame in '..\src\CSCoder.Hub.ClientFrame.pas' {CSHubClientFrame: TFrame},
+  CSCoder.Hub.ListControl in '..\src\CSCoder.Hub.ListControl.pas',
+  CSCoder.Hub.Model in '..\src\CSCoder.Hub.Model.pas',
+  CSCoder.Hub.About in '..\src\CSCoder.Hub.About.pas',
+  CSCoder.Hub.IconPicker in '..\src\CSCoder.Hub.IconPicker.pas',
+  CSCoder.Hub.Images in '..\src\CSCoder.Hub.Images.pas',
+  CSCoder.Hub.Strings in '..\src\CSCoder.Hub.Strings.pas',
+  CSCoder.Hub.Repository in '..\src\CSCoder.Hub.Repository.pas';
+
+end.

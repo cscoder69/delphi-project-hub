@@ -1,0 +1,41 @@
+﻿CS.Coder - Hub de Projetos
+==========================
+
+Um painel para a Welcome Page do Delphi que deixa seus projetos a um duplo
+clique, organizados em categorias e grupos.
+
+Funciona no Delphi 11, 12 e 13 (IDE de 32 bits, e a IDE de 64 bits do 12 e
+do 13).
+
+
+INSTALAR
+  1. Feche o Delphi.
+  2. Dê um duplo clique em Install.bat.
+  3. Abra o Delphi. Se o painel não estiver na Welcome Page, clique em
+     Edit Layout e posicione "CS.Coder - Hub de Projetos" na grade.
+
+  A instalação vale para todos os Delphi compatíveis deste usuário do Windows
+  e não pede administrador. Executar Install.bat de novo atualiza para a
+  versão que está nesta pasta.
+
+DESINSTALAR
+  1. Feche o Delphi.
+  2. Dê um duplo clique em Uninstall.bat.
+
+  Sua lista de atalhos é mantida. Para apagar também, execute:
+  Uninstall.bat /data
+
+ONDE FICAM AS COISAS
+  Pacotes:           %LOCALAPPDATA%\CSCoder\Hub\bin
+  Lista de atalhos:  %LOCALAPPDATA%\CSCoder\Hub\D11\projects.json  (D12 e D13
+                     para as outras versões). Cada Delphi tem a sua lista;
+                     para levar a lista de um Delphi para outro, use o botão
+                     da engrenagem > Exportar / Importar. A cada alteração
+                     fica uma cópia .bak.
+
+IDIOMA
+  Português, inglês, espanhol, alemão e francês. O painel segue o idioma do
+  Windows; para escolher outro, use o botão da engrenagem > Idioma.
+
+LICENÇA
+  Código aberto, licença MIT. Veja LICENCA.txt (resumo) e LICENSE.txt.

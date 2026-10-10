@@ -1,0 +1,13 @@
+CS.Coder - Hub de Projetos
+Resumo da licença em português
+
+O texto que vale juridicamente é o de LICENSE.txt, em inglês: a licença MIT.
+Este é só um resumo.
+
+
+O Hub de Projetos é software livre, sob a licença MIT. Você pode usar, copiar,
+modificar, redistribuir e até vender, inclusive em trabalho comercial, desde
+que mantenha o aviso de copyright da CS.Coder e o texto da licença nas cópias.
+O código-fonte é aberto. O software não coleta nem envia dados: a lista de
+atalhos fica só no seu computador. Ele é fornecido "como está", sem garantias,
+e a CS.Coder não se responsabiliza por danos decorrentes do uso.
