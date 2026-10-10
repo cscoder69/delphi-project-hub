@@ -1,4 +1,4 @@
-# CS.Coder - Hub de Projetos 0.26.10.10b (Delphi 11, 12 and 13)
+# CS.Coder - Hub de Projetos 0.26.10.10c (Delphi 11, 12 and 13)
 
 A Welcome Page panel that keeps Delphi projects one double-click away, organized in
 categories and groups, with search, export/import and an interface in English, Portuguese,

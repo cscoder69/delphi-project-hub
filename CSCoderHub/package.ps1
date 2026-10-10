@@ -15,7 +15,7 @@ $Root = $PSScriptRoot
 # 0.<yy>.<mm>.<dd><letter>: the date of the release, plus a letter for more than one in a day.
 # Keep the four numbers of FILEVERSION / PRODUCTVERSION in the .rc in step (the letter only
 # fits its ProductVersion text, which is what the About window shows).
-$Version = '0.26.10.10b'
+$Version = '0.26.10.10c'
 $Name = 'CS.Coder - Hub de Projetos'
 $Vendor = 'CS.Coder'
 # Fill these in before sending to Embarcadero (GetIt shows them as links).

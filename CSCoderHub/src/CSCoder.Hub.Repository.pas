@@ -766,8 +766,7 @@ begin
       if not TFile.Exists(FileName) or (FindProject(FileName) <> nil) then Continue;
       if G = nil then
       begin
-        G := AddGroup(L(sRecentGroup));
-        G.Icon := 'clock';
+        G := AddGroup(L(sRecentGroup)); // no icon: the user adds one if wanted
         G.ManualOrder := True; // newest first, as the IDE lists them
       end;
       AddProject(FileName, G);
