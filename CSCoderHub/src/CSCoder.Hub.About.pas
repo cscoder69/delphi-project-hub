@@ -76,7 +76,7 @@ type
 const
   CSHubDeveloper = 'CS.Coder';
   CSHubSiteUrl = 'https://www.cscoder.com.br';
-  /// The open-source repository: support (issues) and releases live there.
+  /// The open-source repository: support (issues) lives there.
   CSHubProjectUrl = 'https://github.com/cscoder69/delphi-project-hub';
   CSHubSiteText = 'www.cscoder.com.br';
   CSHubMail = 'contato@cscoder.com.br';
@@ -486,8 +486,8 @@ end;
 // by itself: the user's browser opens the site instead.
 procedure TCSHubAboutForm.SiteClick(Sender: TObject);
 begin
-  // "Check for updates": the releases page of the repository.
-  OpenUrl(CSHubProjectUrl + '/releases');
+  // "Check for updates": the company site, which points to the repository.
+  OpenUrl(CSHubSiteUrl);
 end;
 
 procedure TCSHubAboutForm.DataClick(Sender: TObject);

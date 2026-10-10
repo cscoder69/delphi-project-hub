@@ -14,7 +14,7 @@ BEGIN
       VALUE "InternalName", "CSCoder.HubProjetos\0"
       VALUE "OriginalFilename", "CSCoder.HubProjetos.bpl\0"
       VALUE "ProductName", "CS.Coder - Hub de Projetos\0"
-      VALUE "ProductVersion", "0.26.10.10c\0"
+      VALUE "ProductVersion", "0.26.10.10d\0"
     END
   END
   BLOCK "VarFileInfo"
