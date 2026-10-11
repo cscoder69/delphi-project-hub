@@ -144,6 +144,7 @@ begin
 end;
 
 constructor TCSHubModel.Create;
+var Seeded: Integer;
 begin
   inherited Create;
   FImages := TImageCollection.Create(nil);
@@ -157,10 +158,15 @@ begin
   FMenu.Images := FMenuImages;
   FRepo := TCSHubRepository.Create;
   try
-    // First run: no list yet. Start with what the IDE already knows, the recent
-    // projects, so the panel is never empty for someone who has projects.
-    if not FRepo.Load and (FRepo.SeedRecentProjects(CSHubBdsRegistryKey, RecentSeedMax) > 0) then
-      FRepo.Save;
+    // First run: no list yet. Start with what the IDE already knows, so the panel
+    // is never empty for someone who has projects: every favorite in one group,
+    // then the recent projects that are not favorites in another.
+    if not FRepo.Load then
+    begin
+      Seeded := FRepo.SeedFavoriteProjects(CSHubBdsRegistryKey);
+      Inc(Seeded, FRepo.SeedRecentProjects(CSHubBdsRegistryKey, RecentSeedMax));
+      if Seeded > 0 then FRepo.Save;
+    end;
   except
     on E: Exception do
       MessageDlg(L(sErrLoad, [E.Message]), mtWarning, [mbOK], 0);

@@ -74,9 +74,14 @@ type
     /// True when a file was read; False when this Delphi has no list yet.
     function Load: Boolean;
     procedure Save;
-    /// First run: fills a loose group with the projects the IDE itself lists as
-    /// recent ("Closed Projects" under ARegistryKey, HKCU), newest first, only
-    /// the files that still exist, up to AMax. Returns how many were added.
+    /// First run: fills a loose group "Favorites" with every project the IDE has
+    /// as a favorite ("Favorite Projects" under ARegistryKey, HKCU), only the files
+    /// that still exist. No group when there is none. Returns how many were added.
+    function SeedFavoriteProjects(const ARegistryKey: string): Integer;
+    /// First run: fills a loose group "Recent" with the projects the IDE itself
+    /// lists as recent ("Closed Projects"), newest first, only the files that
+    /// still exist and that have no shortcut yet (so call it after the favorites),
+    /// up to AMax. Returns how many were added.
     function SeedRecentProjects(const ARegistryKey: string; AMax: Integer): Integer;
     /// True when someone else (another IDE of the same Delphi version) wrote our
     /// file after we last read or wrote it.
@@ -735,27 +740,43 @@ begin
     Result := False;
 end;
 
+function CompareByNumber(AList: TStringList; A, B: Integer): Integer;
+begin
+  Result := NativeInt(AList.Objects[A]) - NativeInt(AList.Objects[B]);
+end;
+
 // The IDE writes one value per project: File_0 = TBaseProject,'C:\...\App.dproj',1,1,1,1,1
-// (File_0 is the most recent). Only the quoted path matters here.
-function TCSHubRepository.SeedRecentProjects(const ARegistryKey: string; AMax: Integer): Integer;
+// (File_0 is the first of the list). Only the quoted path matters here. The same format
+// serves "Closed Projects" (recent) and "Favorite Projects".
+// Fills one loose group, created only when there is something to put in it, with up to
+// AMax projects (0 = all), in the order of the list, skipping files that no longer exist
+// and projects that already have a shortcut.
+function SeedGroup(ARepo: TCSHubRepository; const AKey, AGroupName: string; AMax: Integer): Integer;
 var Reg: TRegistry;
-    Names: TStringList;
-    I, P1, P2: Integer;
+    Names, Files: TStringList;
+    I, N, P1, P2: Integer;
     Value, FileName, Ext: string;
     G: TCSHubGroup;
 begin
   Result := 0;
   Names := TStringList.Create;
+  Files := TStringList.Create;
   Reg := TRegistry.Create(KEY_READ);
   try
     Reg.RootKey := HKEY_CURRENT_USER;
-    if not Reg.OpenKeyReadOnly(ARegistryKey + '\Closed Projects') then Exit;
+    if not Reg.OpenKeyReadOnly(AKey) then Exit;
+    // By number, not by position: a removed entry can leave a gap.
+    Reg.GetValueNames(Names);
+    for I := 0 to Names.Count - 1 do
+      if SameText(Copy(Names[I], 1, 5), 'File_') and TryStrToInt(Copy(Names[I], 6, MaxInt), N) and (N >= 0) then
+        Files.AddObject(Names[I], TObject(N));
+    Files.CustomSort(CompareByNumber);
     G := nil;
-    for I := 0 to 99 do
+    for I := 0 to Files.Count - 1 do
     begin
-      if Result >= AMax then Break;
-      if not Reg.ValueExists('File_' + IntToStr(I)) then Break;
-      Value := Reg.ReadString('File_' + IntToStr(I));
+      if (AMax > 0) and (Result >= AMax) then Break;
+      if Reg.GetDataType(Files[I]) <> rdString then Continue;
+      Value := Reg.ReadString(Files[I]);
       P1 := Pos('''', Value);
       P2 := 0;
       if P1 > 0 then P2 := Pos('''', Value, P1 + 1);
@@ -763,19 +784,30 @@ begin
       FileName := Copy(Value, P1 + 1, P2 - P1 - 1);
       Ext := LowerCase(TPath.GetExtension(FileName));
       if (Ext <> '.dproj') and (Ext <> '.groupproj') and (Ext <> '.dpr') then Continue;
-      if not TFile.Exists(FileName) or (FindProject(FileName) <> nil) then Continue;
+      if not TFile.Exists(FileName) or (ARepo.FindProject(FileName) <> nil) then Continue;
       if G = nil then
       begin
-        G := AddGroup(L(sRecentGroup)); // no icon: the user adds one if wanted
-        G.ManualOrder := True; // newest first, as the IDE lists them
+        G := ARepo.AddGroup(AGroupName); // no icon: the user adds one if wanted
+        G.ManualOrder := True; // in the order the IDE lists them
       end;
-      AddProject(FileName, G);
+      ARepo.AddProject(FileName, G);
       Inc(Result);
     end;
   finally
     Reg.Free;
+    Files.Free;
     Names.Free;
   end;
+end;
+
+function TCSHubRepository.SeedFavoriteProjects(const ARegistryKey: string): Integer;
+begin
+  Result := SeedGroup(Self, ARegistryKey + '\Favorite Projects', L(sFavoriteGroup), 0);
+end;
+
+function TCSHubRepository.SeedRecentProjects(const ARegistryKey: string; AMax: Integer): Integer;
+begin
+  Result := SeedGroup(Self, ARegistryKey + '\Closed Projects', L(sRecentGroup), AMax);
 end;
 
 procedure TCSHubRepository.Save;

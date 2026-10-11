@@ -1,7 +1,7 @@
 {
     "Id":  "CSCoderHubProjetosD11",
     "Name":  "CS.Coder - Hub de Projetos",
-    "Version":  "0.26.10.10d",
+    "Version":  "0.26.10.10e",
     "Description":  "Welcome Page panel that keeps your Delphi projects one double-click away, organized in categories and groups, with search, export/import and an interface in English, Portuguese, Spanish, German and French.",
     "Vendor":  "CS.Coder",
     "VendorUrl":  "https://www.cscoder.com.br",
@@ -9,7 +9,7 @@
     "License":  "LICENSE.txt",
     "Url":  "CSCoderHubProjetosD11.zip",
     "ProjectUrl":  "https://github.com/cscoder69/delphi-project-hub",
-    "Modified":  "2026-10-10 00:28:44",
+    "Modified":  "2026-10-10 21:13:50",
     "LicenseName":  "MIT License",
     "RequireElevation":  "0",
     "AllUsers":  "0",

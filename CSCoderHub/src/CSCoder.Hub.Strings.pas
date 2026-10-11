@@ -59,7 +59,7 @@ type
     // icons of categories and groups
     sMenuIcon, sIconTitle, sIconNone, sIconLoad, sFilterImages, sErrIconLoad,
     // first run
-    sRecentGroup);
+    sRecentGroup, sFavoriteGroup);
 
 const
   CSHubLangNames: array[TCSHubLang] of string = ('English', 'Português', 'Español', 'Deutsch', 'Français');
@@ -383,7 +383,8 @@ const
       'No se pudo usar esta imagen: %s', 'Dieses Bild konnte nicht verwendet werden: %s',
       'Impossible d''utiliser cette image : %s'),
 
-    { sRecentGroup } ('Recent', 'Recentes', 'Recientes', 'Zuletzt verwendet', 'Récents')
+    { sRecentGroup } ('Recent', 'Recentes', 'Recientes', 'Zuletzt verwendet', 'Récents'),
+    { sFavoriteGroup } ('Favorites', 'Favoritos', 'Favoritos', 'Favoriten', 'Favoris')
   );
 
 var
