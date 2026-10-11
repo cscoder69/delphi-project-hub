@@ -86,7 +86,7 @@ These are three different things, and it helps to know which one you are looking
 | Stage | How to tell |
 |---|---|
 | Installation completed | `Install.bat` printed `[OK]` for your Delphi. The packages are in `%LOCALAPPDATA%\CSCoder\Hub\bin`. |
-| Panel available | Delphi loaded the package: "CS.Coder - Hub de Projetos" appears in **Component > Install Packages** and in the Welcome Page Layout Editor. |
+| Panel available | Delphi loaded the package: **Component > Install Packages** lists it, checked, as "CS.Coder - Hub de Projetos (https://www.cscoder.com.br)", and the Welcome Page Layout Editor offers the panel. |
 | Panel visible | The panel has been placed on the Welcome Page layout. |
 
 ### Updating

@@ -86,7 +86,7 @@ São três situações diferentes, e ajuda saber em qual delas você está:
 | Etapa | Como saber |
 |---|---|
 | Instalação concluída | O `Install.bat` mostrou `[OK]` para o seu Delphi. Os pacotes estão em `%LOCALAPPDATA%\CSCoder\Hub\bin`. |
-| Painel disponível | O Delphi carregou o pacote: "CS.Coder - Hub de Projetos" aparece em **Component > Install Packages** e no Welcome Page Layout Editor. |
+| Painel disponível | O Delphi carregou o pacote: **Component > Install Packages** mostra, marcado, o item "CS.Coder - Hub de Projetos (https://www.cscoder.com.br)", e o Welcome Page Layout Editor oferece o painel. |
 | Painel visível | O painel foi posicionado no layout da Welcome Page. |
 
 ### Atualização
