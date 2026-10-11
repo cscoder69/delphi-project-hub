@@ -180,6 +180,24 @@ or recent projects, and Delphi's own lists are never changed.
   saving a change, the Hub rereads the file, so one window does not overwrite what the
   other did. The **Refresh** button shows the other window's changes.
 
+## Specifications
+
+| | |
+|---|---|
+| Type | Design-time package for the Delphi IDE, shown as a panel on the Welcome Page |
+| Delphi versions | 11 Alexandria, 12 Athens and 13 Florence |
+| IDE | 32-bit (11, 12 and 13) and 64-bit (12 and 13) |
+| Operating system | Windows, as required by the Delphi IDE |
+| Theme | Follows the IDE theme, light or dark. Every color is read from the theme in use, and the panel is redrawn when you switch themes, with Delphi open |
+| Languages | English, Portuguese, Spanish, German and French, chosen from the language of Windows or set by hand |
+| Project files | `.dproj`, `.groupproj` and `.dpr` |
+| Structure | Categories (optional), groups and project shortcuts |
+| Icons | 56 built in, or your own image in PNG, ICO, JPG, BMP or GIF |
+| Data | One JSON file per Delphi version, in `%LOCALAPPDATA%\CSCoder\Hub` |
+| Network | Not used. No data is collected or sent |
+| Installation | Per Windows user, with no administrator rights |
+| License | MIT, free and open source |
+
 ## Screenshots
 
 | Choosing an icon | Project and group menus |

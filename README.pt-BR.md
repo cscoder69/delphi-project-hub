@@ -181,6 +181,24 @@ nem os projetos recentes do Delphi, e as listas do próprio Delphi nunca são al
   Antes de gravar uma alteração, o Hub relê o arquivo, para uma janela não sobrescrever o
   que a outra fez. O botão **Atualizar** mostra as alterações da outra janela.
 
+## Especificações
+
+| | |
+|---|---|
+| Tipo | Pacote de design para a IDE do Delphi, exibido como um painel na Welcome Page |
+| Versões do Delphi | 11 Alexandria, 12 Athens e 13 Florence |
+| IDE | 32 bits (11, 12 e 13) e 64 bits (12 e 13) |
+| Sistema operacional | Windows, como a própria IDE do Delphi exige |
+| Tema | Acompanha o tema da IDE, claro ou escuro. Toda cor é lida do tema em uso, e o painel é redesenhado quando você troca de tema, com o Delphi aberto |
+| Idiomas | Português, inglês, espanhol, alemão e francês, escolhido pelo idioma do Windows ou definido à mão |
+| Arquivos de projeto | `.dproj`, `.groupproj` e `.dpr` |
+| Estrutura | Categorias (opcionais), grupos e atalhos de projetos |
+| Ícones | 56 na biblioteca, ou uma imagem sua em PNG, ICO, JPG, BMP ou GIF |
+| Dados | Um arquivo JSON por versão do Delphi, em `%LOCALAPPDATA%\CSCoder\Hub` |
+| Rede | Não usa. Nenhum dado é coletado nem enviado |
+| Instalação | Por usuário do Windows, sem pedir administrador |
+| Licença | MIT, gratuito e de código aberto |
+
 ## Capturas de tela
 
 | Escolhendo um ícone | Menus do projeto e do grupo |
