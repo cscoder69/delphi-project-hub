@@ -34,6 +34,18 @@ in the screenshots are examples.*
 - **Safe for your work.** The Hub stores shortcuts only. It never deletes or moves project
   files.
 
+## What's new in 0.26.10.12b
+
+- **Settings in a file.** The language you chose is now kept in
+  `%LOCALAPPDATA%\CSCoder\Hub\settings.json`. The Hub keeps no setting in the Windows
+  registry, and the choice you had already made is carried over on the first run.
+- **Report a problem.** The About window has a new link that opens the
+  [issues page](https://github.com/cscoder69/delphi-project-hub/issues) of this repository.
+- **Uninstalling with `/data`** now removes `settings.json` too.
+
+The notes for every version are on the
+[Releases page](https://github.com/cscoder69/delphi-project-hub/releases).
+
 ## Installation
 
 ### Supported versions
@@ -344,7 +356,8 @@ report what can be better.
 ## Contributing and support
 
 - **Problems and suggestions:** open an
-  [issue](https://github.com/cscoder69/delphi-project-hub/issues).
+  [issue](https://github.com/cscoder69/delphi-project-hub/issues). In the panel, the **?**
+  button opens the About window, and its **Report a problem** link leads to that page.
 - **Contributions:** pull requests are welcome. For a larger change, please open an issue
   first so we can agree on the approach.
 - **Contact:** contato@cscoder.com.br

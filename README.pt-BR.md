@@ -34,6 +34,19 @@ e as pastas das capturas são exemplos.*
 - **Seguro para o seu trabalho.** O Hub guarda apenas atalhos. Ele nunca apaga nem move
   arquivos de projeto.
 
+## Novidades da versão 0.26.10.12b
+
+- **Configuração em arquivo.** O idioma que você escolheu agora fica em
+  `%LOCALAPPDATA%\CSCoder\Hub\settings.json`. O Hub não guarda nenhuma configuração no
+  registro do Windows, e a escolha que você já tinha feito vem junto na primeira abertura.
+- **Avisar de um problema.** A janela "Sobre" tem um link novo que abre a
+  [página de issues](https://github.com/cscoder69/delphi-project-hub/issues) deste
+  repositório.
+- **Desinstalar com `/data`** agora apaga também o `settings.json`.
+
+As notas de todas as versões estão na
+[página de Releases](https://github.com/cscoder69/delphi-project-hub/releases).
+
 ## Instalação
 
 ### Versões compatíveis
@@ -345,7 +358,8 @@ experimente e aponte o que pode melhorar.
 ## Contribuições e suporte
 
 - **Problemas e sugestões:** abra uma
-  [issue](https://github.com/cscoder69/delphi-project-hub/issues).
+  [issue](https://github.com/cscoder69/delphi-project-hub/issues). No painel, o botão
+  **?** abre a janela "Sobre", e o link **Avisar de um problema** leva a essa página.
 - **Contribuições:** pull requests são bem-vindos. Para uma mudança maior, abra uma issue
   antes, para combinarmos o caminho.
 - **Contato:** contato@cscoder.com.br
