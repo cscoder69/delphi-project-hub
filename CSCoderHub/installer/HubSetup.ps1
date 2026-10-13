@@ -21,7 +21,9 @@ $ErrorActionPreference = 'Stop'
 $Here = Split-Path -Parent $MyInvocation.MyCommand.Path
 if ($InstallDir -eq '') { $InstallDir = Join-Path $env:LOCALAPPDATA 'CSCoder\Hub\bin' }
 if ($SourceDir -eq '') { $SourceDir = Join-Path $Here 'bin' }
-$Description = 'CS.Coder - Hub de Projetos'
+$Product = 'CS.Coder - Hub de Projetos'
+# What Component > Install Packages shows: the same text as {$DESCRIPTION} of the packages.
+$Description = "$Product (https://www.cscoder.com.br)"
 $Versions = @(
   @{ Key = '22.0'; Tag = 'D11'; Name = 'Delphi 11' },
   @{ Key = '23.0'; Tag = 'D12'; Name = 'Delphi 12' },
@@ -101,7 +103,7 @@ function Find-Versions {
 # ---------------------------------------------------------------------------
 
 Say ''
-Say "$Description - $(if ($Action -eq 'install') { T 'install' 'instalar' } else { T 'uninstall' 'desinstalar' })"
+Say "$Product - $(if ($Action -eq 'install') { T 'install' 'instalar' } else { T 'uninstall' 'desinstalar' })"
 Say ''
 
 # Delphi rewrites its package list when it closes, which would undo our changes.

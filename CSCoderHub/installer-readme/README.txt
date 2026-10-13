@@ -38,3 +38,7 @@ LANGUAGE
 
 LICENSE
   Open source, MIT License. See LICENSE.txt.
+
+  "Delphi" and "RAD Studio" are trademarks of Embarcadero Technologies, Inc.
+  CS.Coder Project Hub is an independent project. It is not affiliated with,
+  maintained by or endorsed by Embarcadero.

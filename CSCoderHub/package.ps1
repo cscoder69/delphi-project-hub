@@ -34,7 +34,20 @@ if (-not $SkipBuild) {
 $Dist = Join-Path $Root 'dist'
 if (Test-Path $Dist) { Remove-Item $Dist -Recurse -Force }
 New-Item -ItemType Directory -Force $Dist | Out-Null
+Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+# Entry names with '/', as the zip format asks: CreateFromDirectory writes '\' here.
+function New-Zip([string]$SourceDir, [string]$ZipFile) {
+  $zip = [System.IO.Compression.ZipFile]::Open($ZipFile, [System.IO.Compression.ZipArchiveMode]::Create)
+  try {
+    foreach ($f in Get-ChildItem $SourceDir -Recurse -File | Sort-Object FullName) {
+      $entry = $f.FullName.Substring($SourceDir.Length + 1).Replace('\', '/')
+      [void][System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $f.FullName, $entry,
+        [System.IO.Compression.CompressionLevel]::Optimal)
+    }
+  } finally { $zip.Dispose() }
+}
 
 function Copy-Bpl([string]$Tag, [string]$Platform, [string]$TargetDir) {
   $file = "CSCoder.HubProjetos.$Tag.bpl"
@@ -55,7 +68,7 @@ foreach ($tag in $Tags) {
 Copy-Item (Join-Path $Root 'installer\*') $Stage
 Copy-Item (Join-Path $Root 'LICENSE.txt'), (Join-Path $Root 'LICENCA.txt') $Stage
 Copy-Item (Join-Path $Root 'installer-readme\README.txt'), (Join-Path $Root 'installer-readme\LEIAME.txt') $Stage
-[System.IO.Compression.ZipFile]::CreateFromDirectory($Stage, "$Stage.zip")
+New-Zip $Stage "$Stage.zip"
 Remove-Item $Stage -Recurse -Force
 
 # ---- GetIt packages ---------------------------------------------------------
@@ -105,7 +118,7 @@ foreach ($tag in $Tags) {
   $has64 = Copy-Bpl $tag 'Win64' (Join-Path $stage 'Win64')
   if (-not ($has32 -or $has64)) { if (Test-Path $dir) { Remove-Item $dir -Recurse -Force }; continue }
   Copy-Item (Join-Path $Root 'LICENSE.txt') $stage
-  [System.IO.Compression.ZipFile]::CreateFromDirectory($stage, (Join-Path $dir "CSCoderHubProjetos$tag.zip"))
+  New-Zip $stage (Join-Path $dir "CSCoderHubProjetos$tag.zip")
   Remove-Item $stage -Recurse -Force
   Copy-Item (Join-Path $Root 'LICENSE.txt') $dir
   Copy-Item (Join-Path $Root 'assets\CSCoderHubProjetos.png') $dir

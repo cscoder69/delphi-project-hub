@@ -41,3 +41,7 @@ IDIOMA
 
 LICENÇA
   Código aberto, licença MIT. Veja LICENCA.txt (resumo) e LICENSE.txt.
+
+  "Delphi" e "RAD Studio" são marcas da Embarcadero Technologies, Inc.
+  O Hub de Projetos é um projeto independente: não tem vínculo com a
+  Embarcadero, não é mantido por ela nem conta com o seu endosso.
