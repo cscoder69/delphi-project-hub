@@ -59,7 +59,9 @@ type
     // icons of categories and groups
     sMenuIcon, sIconTitle, sIconNone, sIconLoad, sFilterImages, sErrIconLoad,
     // first run
-    sRecentGroup, sFavoriteGroup);
+    sRecentGroup, sFavoriteGroup,
+    // about: the link to the issues page
+    sAboutReport);
 
 const
   CSHubLangNames: array[TCSHubLang] of string = ('English', 'Português', 'Español', 'Deutsch', 'Français');
@@ -75,7 +77,8 @@ function CSHubCount(ACount: Integer; ASingular, APlural: TCSHubStr): string;
 /// (English when Windows is in a language we do not have).
 function CSHubLanguage: TCSHubLang;
 function CSHubLanguageIsAuto: Boolean;
-/// Picks a language and remembers it (per Windows user, for every Delphi version).
+/// Picks a language and remembers it in settings.json (per Windows user, for every
+/// Delphi version).
 procedure CSHubSetLanguage(ALang: TCSHubLang);
 /// Back to following Windows.
 procedure CSHubSetLanguageAuto;
@@ -83,11 +86,18 @@ procedure CSHubSetLanguageAuto;
 implementation
 
 uses
-  Winapi.Windows, System.SysUtils, System.Win.Registry;
+  Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils, System.JSON, System.Win.Registry;
 
 const
-  SettingsKey = 'Software\CSCoder\HubProjetos';
-  LanguageValue = 'Language';
+  // %LOCALAPPDATA%\CSCoder\Hub\settings.json: {"language": "auto" | "en" | "pt" | "es" | "de" | "fr"}
+  SettingsFile = 'settings.json';
+  LanguageKey = 'language';
+  AutoCode = 'auto';
+  // Where releases up to 0.26.10.10e kept the language. Looked at once, while the
+  // settings file has no language yet, to carry the choice over; then removed.
+  OldSettingsKey = 'Software\CSCoder\HubProjetos';
+  OldVendorKey = 'Software\CSCoder';
+  OldLanguageValue = 'Language';
   Codes: array[TCSHubLang] of string = ('en', 'pt', 'es', 'de', 'fr');
   LB = sLineBreak;
 
@@ -384,7 +394,10 @@ const
       'Impossible d''utiliser cette image : %s'),
 
     { sRecentGroup } ('Recent', 'Recentes', 'Recientes', 'Zuletzt verwendet', 'Récents'),
-    { sFavoriteGroup } ('Favorites', 'Favoritos', 'Favoritos', 'Favoriten', 'Favoris')
+    { sFavoriteGroup } ('Favorites', 'Favoritos', 'Favoritos', 'Favoriten', 'Favoris'),
+
+    { sAboutReport } ('Report a problem', 'Avisar de um problema', 'Informar de un problema',
+      'Problem melden', 'Signaler un problème')
   );
 
 var
@@ -403,20 +416,133 @@ begin
   end;
 end;
 
-procedure LoadLanguage;
+function SettingsFileName: string;
+var Base: string;
+begin
+  // Same folder as the shortcut lists (see TCSHubRepository.Create), one file for every Delphi.
+  Base := GetEnvironmentVariable('LOCALAPPDATA');
+  if Base = '' then Base := TPath.GetHomePath;
+  Result := TPath.Combine(TPath.Combine(Base, 'CSCoder\Hub'), SettingsFile);
+end;
+
+// The settings as they are on disk; an empty object when there is no file or it is not ours.
+function ReadSettings: TJSONObject;
+var Value: TJSONValue;
+begin
+  Value := nil;
+  try
+    if TFile.Exists(SettingsFileName) then
+      Value := TJSONObject.ParseJSONValue(TFile.ReadAllText(SettingsFileName, TEncoding.UTF8));
+  except
+    Value := nil;
+  end;
+  if Value is TJSONObject then Exit(TJSONObject(Value));
+  Value.Free;
+  Result := TJSONObject.Create;
+end;
+
+// Keeps every other key of the file as it is. False when it could not be written.
+function SaveLanguage(const ACode: string): Boolean;
+var Obj: TJSONObject;
+    Name, Temp: string;
+begin
+  Result := False;
+  try
+    Name := SettingsFileName;
+    Obj := ReadSettings;
+    try
+      Obj.RemovePair(LanguageKey).Free;
+      Obj.AddPair(LanguageKey, ACode);
+      TDirectory.CreateDirectory(TPath.GetDirectoryName(Name));
+      Temp := Name + '.tmp';
+      // GetBytes, not WriteAllText: the file goes without a BOM.
+      TFile.WriteAllBytes(Temp, TEncoding.UTF8.GetBytes(Obj.Format(2) + sLineBreak));
+      Result := MoveFileEx(PChar(Temp), PChar(Name), MOVEFILE_REPLACE_EXISTING);
+    finally
+      Obj.Free;
+    end;
+  except
+    // not remembered; the choice still holds for this session
+  end;
+end;
+
+// The language an earlier release left in the registry; '' when there is none.
+function OldLanguage: string;
 var Reg: TRegistry;
+begin
+  Result := '';
+  try
+    Reg := TRegistry.Create(KEY_READ);
+    try
+      if Reg.OpenKeyReadOnly(OldSettingsKey) and Reg.ValueExists(OldLanguageValue) then
+        Result := LowerCase(Reg.ReadString(OldLanguageValue));
+    finally
+      Reg.Free;
+    end;
+  except
+    Result := '';
+  end;
+end;
+
+// Takes out what earlier releases wrote: the value, and each key only when left empty.
+procedure ForgetOldLanguage;
+var Reg: TRegistry;
+
+  procedure DropIfEmpty(const AKey: string);
+  var Info: TRegKeyInfo;
+      Empty: Boolean;
+  begin
+    if not Reg.OpenKey(AKey, False) then Exit;
+    Empty := Reg.GetKeyInfo(Info) and (Info.NumSubKeys = 0) and (Info.NumValues = 0);
+    Reg.CloseKey;
+    if Empty then Reg.DeleteKey(AKey);
+  end;
+
+begin
+  try
+    Reg := TRegistry.Create;
+    try
+      if not Reg.OpenKey(OldSettingsKey, False) then Exit;
+      Reg.DeleteValue(OldLanguageValue);
+      Reg.CloseKey;
+      DropIfEmpty(OldSettingsKey);
+      DropIfEmpty(OldVendorKey);
+    finally
+      Reg.Free;
+    end;
+  except
+    // left behind; it is not read again once the settings file has a language
+  end;
+end;
+
+procedure LoadLanguage;
+var Obj: TJSONObject;
+    Value: TJSONValue;
     Code: string;
+    Known: Boolean;
     Lang: TCSHubLang;
 begin
   Current := WindowsLanguage;
   IsAuto := True;
   try
-    Reg := TRegistry.Create(KEY_READ);
+    Obj := ReadSettings;
     try
-      if not Reg.OpenKeyReadOnly(SettingsKey) or not Reg.ValueExists(LanguageValue) then Exit;
-      Code := LowerCase(Reg.ReadString(LanguageValue));
+      // Up to Delphi 12 a JSON number is a TJSONString too.
+      Value := Obj.GetValue(LanguageKey);
+      Known := (Value is TJSONString) and not (Value is TJSONNumber);
+      if Known then Code := LowerCase(Value.Value);
     finally
-      Reg.Free;
+      Obj.Free;
+    end;
+    if not Known then
+    begin
+      // First run of a release that keeps its settings in the file.
+      Code := OldLanguage;
+      Known := False;
+      for Lang := Low(TCSHubLang) to High(TCSHubLang) do
+        if Codes[Lang] = Code then Known := True;
+      if not Known then Code := AutoCode;
+      if SaveLanguage(Code) then ForgetOldLanguage;
     end;
   except
     Exit; // an unreadable setting just means "automatic"
@@ -427,22 +553,6 @@ begin
       Current := Lang;
       IsAuto := False;
     end;
-end;
-
-procedure SaveLanguage(const ACode: string);
-var Reg: TRegistry;
-begin
-  try
-    Reg := TRegistry.Create;
-    try
-      if Reg.OpenKey(SettingsKey, True) then
-        if ACode = '' then Reg.DeleteValue(LanguageValue) else Reg.WriteString(LanguageValue, ACode);
-    finally
-      Reg.Free;
-    end;
-  except
-    // not remembered; the choice still holds for this session
-  end;
 end;
 
 function L(AId: TCSHubStr): string;
@@ -481,7 +591,7 @@ procedure CSHubSetLanguageAuto;
 begin
   Current := WindowsLanguage;
   IsAuto := True;
-  SaveLanguage('');
+  SaveLanguage(AutoCode);
 end;
 
 initialization

@@ -29,6 +29,8 @@ WHERE THINGS ARE
                    the other versions). Each Delphi keeps its own list; use
                    gear button > Export / Import to copy a list from one
                    Delphi to another. A .bak copy is kept on every change.
+  Settings:        %LOCALAPPDATA%\CSCoder\Hub\settings.json  (the language).
+                   No setting is kept in the Windows registry.
 
 LANGUAGE
   English, Portuguese, Spanish, German and French. The panel follows the

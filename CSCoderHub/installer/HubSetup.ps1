@@ -152,7 +152,12 @@ Say ("  " + (T 'Package registrations removed: ' 'Registros de pacote removidos:
 
 $dataDir = Split-Path $InstallDir -Parent
 if ($RemoveData) {
+  # Left by releases up to 0.26.10.10e, which kept the language here. Nothing is written there anymore.
   [Microsoft.Win32.Registry]::CurrentUser.DeleteSubKeyTree('Software\CSCoder\HubProjetos', $false)
+  foreach ($f in 'settings.json', 'settings.json.tmp') {
+    $p = Join-Path $dataDir $f
+    if (Test-Path $p) { Remove-Item $p -Force }
+  }
   # One list per Delphi version (D11\, D12\, ...) plus the single file older releases shared.
   # Only our own files are deleted, never a whole folder blindly.
   $dataFiles = 'projects.json', 'projects.json.bak', 'projects.json.tmp'

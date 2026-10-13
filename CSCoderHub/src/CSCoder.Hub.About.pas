@@ -283,7 +283,7 @@ const
   FeatureGlyphs: array[0..3] of string = (#$E8B7, #$E721, #$E713, #$E943);
   FeatureTitles: array[0..3] of TCSHubStr = (sFeatOrgTitle, sFeatFastTitle, sFeatProdTitle, sFeatDelphiTitle);
   FeatureTexts: array[0..3] of TCSHubStr = (sFeatOrgText, sFeatFastText, sFeatProdText, sFeatDelphiText);
-  LinkGlyphs: array[0..2] of string = (#$E774, #$E715, #$E897);
+  LinkGlyphs: array[0..3] of string = (#$E774, #$E715, #$E897, #$EBE8);
   RowPitch = 28;
 var Lbl: TLabel;
     Btn: TButton;
@@ -413,14 +413,15 @@ begin
   Inc(Y, P(18));
   NewLabel(CSHubDeveloper, P(24), Y, P(26), FInfo.TextColor, True);
   NewLabel(L(sAboutSlogan), P(25), Y + P(40), P(10), FDim);
-  for I := 0 to 2 do
+  for I := 0 to High(LinkGlyphs) do
     AddGlyph(LinkGlyphs[I], Rect(P(300), Y + I * P(24), P(320), Y + I * P(24) + P(20)), P(14), FAccent);
   NewLink(CSHubSiteText, CSHubSiteUrl, P(328), Y + P(1));
   NewLink(CSHubMail, 'mailto:' + CSHubMail, P(328), Y + P(25));
   NewLink(L(sAboutSupport), CSHubProjectUrl + '/issues', P(328), Y + P(49));
-  AddRule(Rect(P(560), Y, P(560) + 1, Y + P(68)));
+  NewLink(L(sAboutReport), CSHubProjectUrl + '/issues', P(328), Y + P(73));
+  AddRule(Rect(P(560), Y, P(560) + 1, Y + P(92)));
   NewLabel(L(sAboutRights, [L(sTitle), CSHubDeveloper]), P(580), Y + P(14), P(12), FDim, False, P(216));
-  ClientHeight := Y + P(72) + P(20);
+  ClientHeight := Y + P(96) + P(20);
 end;
 
 procedure TCSHubAboutForm.BackPaint(Sender: TObject);

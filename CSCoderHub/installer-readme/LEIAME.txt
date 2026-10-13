@@ -32,6 +32,8 @@ ONDE FICAM AS COISAS
                      para levar a lista de um Delphi para outro, use o botão
                      da engrenagem > Exportar / Importar. A cada alteração
                      fica uma cópia .bak.
+  Configurações:     %LOCALAPPDATA%\CSCoder\Hub\settings.json  (o idioma).
+                     Nenhuma configuração fica no registro do Windows.
 
 IDIOMA
   Português, inglês, espanhol, alemão e francês. O painel segue o idioma do

@@ -238,6 +238,9 @@ A lista é um arquivo JSON no seu computador:
   compartilham a mesma.
 - Toda vez que a lista é gravada, a versão anterior fica guardada como `projects.json.bak`.
 - As imagens de ícone que você carregou ficam em uma pasta `icons`, ao lado da lista.
+- O idioma que você escolheu fica em `%LOCALAPPDATA%\CSCoder\Hub\settings.json`, um arquivo
+  só para todas as versões do Delphi. O Hub não guarda nenhuma configuração no registro do
+  Windows.
 - O Hub não usa a rede. Nada é coletado nem enviado a lugar nenhum.
 
 ### Exportar

@@ -1,4 +1,4 @@
-# CS.Coder Project Hub 0.26.10.10e: technical reference
+# CS.Coder Project Hub 0.26.10.12b: technical reference
 
 This is the reference for building, packaging and the data format. For what the extension
 does and how to install and use it, see the [main README](../README.md)
@@ -50,10 +50,15 @@ the IDE of the three versions. Most of the detailed testing was done in Delphi 1
 | The list | `%LOCALAPPDATA%\CSCoder\Hub\D11\projects.json` (and `D12`, `D13`) |
 | Previous version of the list | `projects.json.bak`, in the same folder |
 | Icon images loaded by the user | `icons\`, in the same folder |
-| Language choice | `HKCU\Software\CSCoder\HubProjetos`, value `Language` |
+| Settings (language choice) | `%LOCALAPPDATA%\CSCoder\Hub\settings.json`, key `language` |
 
 Each Delphi version has its own list. The 32-bit and 64-bit IDEs of the same version share
 it. The list is written to a temporary file and then swapped in, keeping the `.bak`.
+
+`settings.json` is one file for every Delphi version: `{ "language": "auto" }`, or `en`,
+`pt`, `es`, `de`, `fr`. The extension keeps no setting in the Windows registry. Releases up
+to 0.26.10.10e kept the language under `HKCU\Software\CSCoder\HubProjetos`; the first run
+of a newer release copies that choice into `settings.json` and removes the old value.
 
 ### Format
 
