@@ -1,4 +1,4 @@
-# CS.Coder Project Hub 0.26.10.12b: technical reference
+# CS.Coder Project Hub 0.26.10.15a: technical reference
 
 This is the reference for building, packaging and the data format. For what the extension
 does and how to install and use it, see the [main README](../README.md)

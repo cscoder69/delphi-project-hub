@@ -34,15 +34,16 @@ e as pastas das capturas são exemplos.*
 - **Seguro para o seu trabalho.** O Hub guarda apenas atalhos. Ele nunca apaga nem move
   arquivos de projeto.
 
-## Novidades da versão 0.26.10.12b
+## Novidades da versão 0.26.10.15a
 
-- **Configuração em arquivo.** O idioma que você escolheu agora fica em
-  `%LOCALAPPDATA%\CSCoder\Hub\settings.json`. O Hub não guarda nenhuma configuração no
-  registro do Windows, e a escolha que você já tinha feito vem junto na primeira abertura.
-- **Avisar de um problema.** A janela "Sobre" tem um link novo que abre a
-  [página de issues](https://github.com/cscoder69/delphi-project-hub/issues) deste
-  repositório.
-- **Desinstalar com `/data`** agora apaga também o `settings.json`.
+- **Duplo clique corrigido.** Abrir um projeto com duplo clique na lista podia mostrar um
+  erro logo depois de o projeto abrir ("has no parent window" ou uma violação de acesso),
+  quando o Delphi fecha a Welcome Page ao abrir um projeto. Agora o projeto abre depois que
+  o clique termina, e o erro não aparece mais.
+- **Descrição do pacote com o site.** O instalador registra o pacote como
+  "CS.Coder - Hub de Projetos (https://www.cscoder.com.br)", nome que aparece em
+  Component > Install Packages.
+- **Arquivo de licença só com o texto MIT**, para o GitHub reconhecer a licença.
 
 As notas de todas as versões estão na
 [página de Releases](https://github.com/cscoder69/delphi-project-hub/releases).

@@ -1437,6 +1437,8 @@ end;
 procedure TCSHubListControl.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
   inherited;
+  // A double click may have left the list off the Welcome Page.
+  if (csDestroying in ComponentState) or (Parent = nil) or not HandleAllocated then Exit;
   if CanFocus then SetFocus;
   FDownCell := HitTest(X, Y, FDownPart);
   FPressed := False;

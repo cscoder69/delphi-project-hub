@@ -335,8 +335,29 @@ end;
 
 { Projects }
 
+// Opening a project makes the IDE take the Welcome Page down, and with it the list
+// that was clicked. The open runs after the click is over (the VCL still calls the
+// list's MouseDown after DblClick) and holds only the file name, never an object.
+procedure OpenProjectLater(const AFileName: string);
+begin
+  TThread.ForceQueue(nil,
+    procedure
+    var Actions: IOTAActionServices;
+    begin
+      if not Supports(BorlandIDEServices, IOTAActionServices, Actions) then
+      begin
+        MessageDlg(L(sErrNoService), mtError, [mbOK], 0);
+        Exit;
+      end;
+      try
+        Actions.OpenProject(AFileName, True);
+      except
+        on E: Exception do MessageDlg(L(sErrOpen, [E.Message]), mtError, [mbOK], 0);
+      end;
+    end);
+end;
+
 procedure TCSHubModel.OpenProject(AProject: TCSHubProject);
-var Actions: IOTAActionServices;
 begin
   if AProject = nil then Exit;
   if not TFile.Exists(AProject.FileName) then
@@ -344,16 +365,7 @@ begin
     MessageDlg(L(sErrFileNotFound, [AProject.FileName]), mtWarning, [mbOK], 0);
     Exit;
   end;
-  if not Supports(BorlandIDEServices, IOTAActionServices, Actions) then
-  begin
-    MessageDlg(L(sErrNoService), mtError, [mbOK], 0);
-    Exit;
-  end;
-  try
-    Actions.OpenProject(AProject.FileName, True);
-  except
-    on E: Exception do MessageDlg(L(sErrOpen, [E.Message]), mtError, [mbOK], 0);
-  end;
+  OpenProjectLater(AProject.FileName);
 end;
 
 procedure TCSHubModel.ShowProjectMenu(AProject: TCSHubProject);
